@@ -6,4 +6,8 @@
     this.ctx = ctx;
   };
 
+  GameView.prototype.start = function () {
+    // body...
+  };
+
 })();

@@ -14,8 +14,15 @@
     // body...
   };
 
-  Tile.prototype.location = function () {
-    // body...
+  Tile.prototype.coordinates = function () {
+    return this.frame.coordinatesOf(this);
+  };
+
+  Tile.prototype.draw = function () {
+    if (this.val > 0) {
+
+      //code
+    }
   };
 
 })();
