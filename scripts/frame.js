@@ -26,11 +26,13 @@
     return (coords[0] >= 0 && coords[1] <= 3);
   };
 
-  Frame.prototype.coordinatesOfBlank = function () {
+  Frame.prototype.blank = function () {
+    var tile;
     for (var row = 0; row < 4; row++) {
       for (var col = 0; col < 4; col++) {
-        if (this.tileAt([row, col]).val === 0) {
-          return [row, col];
+        tile = this.tileAt([row, col]);
+        if (tile.val === 0) {
+          return tile;
         }
       }
     }
@@ -68,15 +70,54 @@
     this.tiles[row][col] = tile;
   };
 
-  Frame.prototype.slide = function (tile) {
+  Frame.prototype.slideOne = function (tile) {
     if (tile.isNeighboringBlank()) {
       var tileCoords = tile.coordinates;
-      var blankCoords = this.coordinatesOfBlank();
-      var blank = this.tileAt(blankCoords);
+      var blank = this.blank();
+      var blankCoords = blank.coordinates;
       this.setTile(tile, blankCoords);
       this.setTile(blank, tileCoords);
     }
     this.refreshTileCoordinates();
+  };
+
+  Frame.prototype.slide = function (tile) {
+    var blankCoords = this.blank().coordinates;
+    var row = tile.coordinates[0];
+    var col = tile.coordinates[1];
+    if (row === blankCoords[0]) {
+      this.slideMany(tile, this.tileRow(row));
+    } else if (col === blankCoords[1]) {
+      this.slideMany(tile, this.tileCol(col));
+    }
+  };
+
+  Frame.prototype.slideMany = function (keyTile, tileSet) {
+    var blank = this.blank();
+    var blankIndex = tileSet.indexOf(blank);
+    var keyIndex = tileSet.indexOf(keyTile);
+    var numToSlide = Math.abs(keyIndex - blankIndex);
+    var subset;
+    if (blankIndex < keyIndex) {
+      subset = tileSet.slice(blankIndex + 1, keyIndex + 1);
+    } else {
+      subset = tileSet.slice(keyIndex, blankIndex).reverse();
+    }
+    for (var i = 0; i < numToSlide; i++) {
+      this.slideOne(subset[i]);
+    }
+  };
+
+  Frame.prototype.tileRow = function (index) {
+    return this.tiles[index];
+  };
+
+  Frame.prototype.tileCol = function (index) {
+    return this.transposedTiles()[index];
+  };
+
+  Frame.prototype.transposedTiles = function () {
+    return _.zip.apply(_, this.tiles);
   };
 
   Frame.prototype.handleClick = function (mouseCoords) {
