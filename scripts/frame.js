@@ -1,9 +1,8 @@
 (function() {
   window.Fifteen = window.Fifteen || {};
 
-  var Frame = Fifteen.Frame = function (tiles) {
-    this.tiles = tiles || this.populateTiles();
-    this.blank = this.tiles[3][3];
+  var Frame = Fifteen.Frame = function () {
+    this.tiles = this.populateTiles();
   };
 
   Frame.prototype.populateTiles = function () {
@@ -22,19 +21,9 @@
     return tiles;
   };
 
-  Frame.prototype.validCoords = function (coordinates) {
+  Frame.prototype.areValidCoords = function (coordinates) {
     var coords = coordinates.slice().sort();
     return (coords[0] >= 0 && coords[1] <= 3);
-  };
-
-  Frame.prototype.coordinatesOf = function (tile) {
-    for (var row = 0; row < 4; row++) {
-      for (var col = 0; col < 4; col++) {
-        if (tile === this.tiles[row][col]) {
-          return [row, col];
-        }
-      }
-    }
   };
 
   Frame.prototype.coordinatesOfBlank = function () {
@@ -48,13 +37,11 @@
   };
 
   Frame.prototype.neighborsOf = function (tile) {
-    var tileCoords = this.coordinatesOf(tile);
-    var row = tileCoords[0];
-    var col = tileCoords[1];
+    var row = tile.coordinates[0];
+    var col = tile.coordinates[1];
     var coords = [[row+1, col], [row-1, col], [row, col+1], [row, col-1]];
-    console.log(row, col, coords);
     coords = _.filter(coords, function (coordPair) {
-      return this.validCoords(coordPair);
+      return this.areValidCoords(coordPair);
     }.bind(this));
     return _.map(coords, function (coordPair) {
       return this.tileAt(coordPair);
@@ -75,14 +62,6 @@
     });
   };
 
-  Frame.prototype.dup = function () {                     //unnecessary?
-    var dupTiles = [];
-    _.each(this.tiles, function (row) {
-      dupTiles.push(row.slice());
-    });
-    return new Frame(dupTiles);
-  };
-
   Frame.prototype.setTile = function (tile, coordinates) {
     var row = coordinates[0];
     var col = coordinates[1];
@@ -90,12 +69,32 @@
   };
 
   Frame.prototype.slide = function (tile) {
-    if (tile.neighborsBlank()) {
-      var tileCoords = this.coordinatesOf(tile);
+    if (tile.isNeighboringBlank()) {
+      var tileCoords = tile.coordinates;
       var blankCoords = this.coordinatesOfBlank();
+      var blank = this.tileAt(blankCoords);
       this.setTile(tile, blankCoords);
-      this.setTile(this.blank, tileCoords);
+      this.setTile(blank, tileCoords);
     }
+    this.assignTileCoordinates();
+  };
+
+  Frame.prototype.assignTileCoordinates = function () {
+    for (var row = 0; row < 4; row++) {
+      for (var col = 0; col < 4; col++) {
+        this.tiles[row][col].setCoordinates([row, col]);
+      }
+    }
+  };
+
+  Frame.prototype.isSolved = function () {
+    var flatTiles = _.flatten(this.tiles);
+    for (var i = 0; i < 15; i++) {
+      if (flatTiles[i].val !== i + 1) {
+        return false;
+      }
+    }
+    return true;
   };
 
 })();

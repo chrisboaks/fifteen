@@ -4,43 +4,24 @@
   var Tile = Fifteen.Tile = function (frame, val) {
     this.frame = frame;
     this.val = val;
+    this.coordinates = null;
   };
 
-  Tile.prototype.slide = function () {              ////unnecessary?
-    if (this.neighborsBlank()) {
-      this.frame.slide(this);
-    }
+  Tile.prototype.isNeighboringBlank = function () {
+    var neighbors = frame.neighborsOf(this);
+    return _.any(neighbors, function (neighbor) {
+      return neighbor.val === 0;
+    });
   };
 
-  Tile.prototype.neighborsBlank = function (otherTile) {
-    var blankCoords = this.frame.coordinatesOfBlank();
-    var theseCoords = this.coordinates();
-    var dRow = Math.abs(blankCoords[0] - theseCoords[0]);
-    var dCol = Math.abs(blankCoords[1] - theseCoords[1]);
-    var distances = [dRow, dCol].sort();
-    if (distances[0] === 0 && distances[1] === 1) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  Tile.prototype.coordinates = function () {
-    return this.frame.coordinatesOf(this);
-  };
-
-  Tile.prototype.row = function () {
-    return this.coordinates()[0];
-  };
-
-  Tile.prototype.col = function () {
-    return this.coordinates()[1];
+  Tile.prototype.setCoordinates = function (coords) {
+    this.coordinates = coords;
   };
 
   Tile.prototype.draw = function (ctx) {
     if (this.val > 0) {
-      var row = this.row();
-      var col = this.col();
+      var row = this.coordinates[0];
+      var col = this.coordinates[1];
       ctx.fillStyle = 'red';
       ctx.strokeStyle = 'black';
       ctx.font = "20px Arial";

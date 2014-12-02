@@ -8,8 +8,11 @@
 
   GameView.prototype.start = function () {
     window.setInterval((function () {
-        this.frame.draw(this.ctx);
+      this.frame.assignTileCoordinates();
+      this.frame.draw(this.ctx);
     }).bind(this), 15);
   };
+
+
 
 })();
