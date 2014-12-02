@@ -1,11 +1,10 @@
 (function() {
   window.Fifteen = window.Fifteen || {};
 
-  var Frame = Fifteen.Frame = function () {
-    this.tiles = this.populateTiles();
+  var Frame = Fifteen.Frame = function (tiles) {
+    this.tiles = tiles || this.populateTiles();
     this.blank = this.tiles[3][3];
   };
-
 
   Frame.prototype.populateTiles = function () {
     var allTiles = [];
@@ -33,6 +32,10 @@
     }
   };
 
+  Frame.prototype.coordinatesOfBlank = function () {
+    return this.coordinatesOf(this.blank);
+  };
+
   Frame.prototype.tileAt = function (coordinates) {
     var row = coordinates[0];
     var col = coordinates[1];
@@ -40,11 +43,34 @@
   };
 
   Frame.prototype.draw = function (ctx) {
+    ctx.clearRect(0, 0, 800, 800);
     var flatTiles = _.flatten(this.tiles);
     _.each(flatTiles, function (tile) {
       tile.draw(ctx);
     });
   };
 
+  Frame.prototype.dup = function () {
+    var dupTiles = [];
+    _.each(this.tiles, function (row) {
+      dupTiles.push(row.slice());
+    });
+    return new Frame(dupTiles);
+  };
+
+  Frame.prototype.setTile = function (tile, coordinates) {
+    var row = coordinates[0];
+    var col = coordinates[1];
+    this.tiles[row][col] = tile;
+  };
+
+  Frame.prototype.slide = function (tile) {
+    if (tile.neighborsBlank()) {
+      var tileCoords = this.coordinatesOf(tile);
+      var blankCoords = this.coordinatesOfBlank();
+      this.setTile(tile, blankCoords);
+      this.setTile(this.blank, tileCoords);
+    }
+  };
 
 })();

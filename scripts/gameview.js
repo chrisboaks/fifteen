@@ -7,9 +7,9 @@
   };
 
   GameView.prototype.start = function () {
-    // window.setInterval((function () {
+    window.setInterval((function () {
         this.frame.draw(this.ctx);
-    // }).bind(this), 15);
+    }).bind(this), 15);
   };
 
 })();
