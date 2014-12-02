@@ -39,5 +39,12 @@
     return this.tiles[row][col];
   };
 
+  Frame.prototype.draw = function (ctx) {
+    var flatTiles = _.flatten(this.tiles);
+    _.each(flatTiles, function (tile) {
+      tile.draw(ctx);
+    });
+  };
+
 
 })();

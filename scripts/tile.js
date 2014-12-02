@@ -18,10 +18,24 @@
     return this.frame.coordinatesOf(this);
   };
 
-  Tile.prototype.draw = function () {
-    if (this.val > 0) {
+  Tile.prototype.row = function () {
+    return this.coordinates()[0];
+  };
 
-      //code
+  Tile.prototype.col = function () {
+    return this.coordinates()[1];
+  };
+
+  Tile.prototype.draw = function (ctx) {
+    if (this.val > 0) {
+      var row = this.row();
+      var col = this.col();
+      console.log(ctx);
+      ctx.fillStyle = 'red';
+      ctx.font = "20px Arial";
+      ctx.fillRect(col * 50, row * 50, 50, 50);
+      ctx.fillStyle = 'white';
+      ctx.fillText(this.val, col * 50 + 15, row * 50 + 25);
     }
   };
 

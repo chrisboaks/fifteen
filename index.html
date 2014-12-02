@@ -33,7 +33,8 @@
       var canvas = document.getElementById('game-canvas');
       var ctx = canvas.getContext('2d');
       window.frame = new Fifteen.Frame();
-      new Fifteen.GameView(window.frame, ctx).start();
+      var gv = new Fifteen.GameView(window.frame, ctx)
+      gv.start();
     </script>
 
 
