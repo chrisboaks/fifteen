@@ -76,10 +76,20 @@
       this.setTile(tile, blankCoords);
       this.setTile(blank, tileCoords);
     }
-    this.assignTileCoordinates();
+    this.refreshTileCoordinates();
   };
 
-  Frame.prototype.assignTileCoordinates = function () {
+  Frame.prototype.handleClick = function (mouseCoords) {
+    var flatTiles = _.flatten(this.tiles);
+    for (var i = 0; i < 16; i++) {
+      if (flatTiles[i].wasClicked(mouseCoords)) {
+        this.slide(flatTiles[i]);
+        return;
+      }
+    }
+  };
+
+  Frame.prototype.refreshTileCoordinates = function () {
     for (var row = 0; row < 4; row++) {
       for (var col = 0; col < 4; col++) {
         this.tiles[row][col].setCoordinates([row, col]);

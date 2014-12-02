@@ -32,4 +32,13 @@
     }
   };
 
+  Tile.prototype.wasClicked = function (mouseCoords) {
+    var x = mouseCoords[0];
+    var y = mouseCoords[1];
+    var col = this.coordinates[1];
+    var row = this.coordinates[0];
+    return col * 200 <= x && x <= col * 200 + 200 &&
+           row * 200 <= y && y <= row * 200 + 200;
+  };
+
 })();
