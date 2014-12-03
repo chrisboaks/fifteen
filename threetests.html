@@ -1,0 +1,110 @@
+<html>
+<head>
+  <title>My first Three.js app</title>
+  <style>
+  body { margin: 0; }
+  canvas { width: 100%; height: 100% }
+  </style>
+</head>
+<body>
+  <script src="./scripts/three.min.js"></script>
+  <script>
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
+  var directionalLight = new THREE.PointLight( 0x006600, 0.75 );
+  directionalLight.position.set( 2, 2, 6 );
+  scene.add( directionalLight );
+  var light = new THREE.AmbientLight( 0x668866 ); // soft white light
+  scene.add( light );
+
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
+
+  // var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+  // var material = new THREE.MeshPhongMaterial( { color: 0x909090} );
+  // var cube = new THREE.Mesh( geometry, material );
+  // // scene.add( cube );
+  //
+  // var dodecahedron = new THREE.Mesh(new THREE.DodecahedronGeometry(), material);
+  // // scene.add(dodecahedron);
+  //
+  // var cylGeom = new THREE.CylinderGeometry(1, 4, 6, 60);
+  // var cylinder = new THREE.Mesh(cylGeom, material);
+  // scene.add(cylinder);
+
+  //Create a sine-like wave
+  // var curve = new THREE.SplineCurve([
+  //   new THREE.Vector2(-10, 0),
+  //   new THREE.Vector2(-5, 5),
+  //   new THREE.Vector2( 0, 0),
+  //   new THREE.Vector2( 5, -5),
+  //   new THREE.Vector2(10, 0)
+  //   ]);
+
+  // var curve = new THREE.SplineCurve([
+  //   new THREE.Vector2(0, 4),
+  //   new THREE.Vector2(1, 5),
+  //   new THREE.Vector2(9, 5),
+  //   new THREE.Vector2(10, 4),
+  //   new THREE.Vector2(10, -4),
+  //   new THREE.Vector2(9, -5),
+  //   new THREE.Vector2(1, -5),
+  //   new THREE.Vector2(0, -4)
+  //   ]);
+  //
+  //   var path = new THREE.Path( curve.getPoints(50) );
+  //
+  //   var geometry = path.createPointsGeometry( 50 );
+  //   var material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+  //
+  //   var object3d = new THREE.Line( geometry, material );
+  //
+  // scene.add(object3d);
+
+  var roundedRectShape = new THREE.Shape();
+  roundedRect( roundedRectShape, 0, 0, 10, 10, 3 );
+  var extrudeSettings = {	amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+
+  var roundedRect3d = roundedRectShape.extrude( extrudeSettings );
+  // var roundedRectPoints = roundedRectShape.createPointsGeometry();
+  // var roundedRectSpacedPoints = roundedRectShape.createSpacedPointsGeometry();
+
+  function roundedRect( ctx, x, y, width, height, radius ){
+
+    ctx.moveTo( x, y + radius );
+    ctx.lineTo( x, y + height - radius );
+    ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
+    ctx.lineTo( x + width - radius, y + height) ;
+    ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
+    ctx.lineTo( x + width, y + radius );
+    ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
+    ctx.lineTo( x + radius, y );
+    ctx.quadraticCurveTo( x, y, x, y + radius );
+  };
+
+  scene.add(roundedRect3d);
+
+  camera.position.z = 20;
+
+  var render = function () {
+    requestAnimationFrame( render );
+
+    // dodecahedron.rotation.x += 0.025;
+    // dodecahedron.rotation.y += 0.025;
+    //
+    // cylinder.rotation.x += 0.005;
+    // cylinder.rotation.y += 0.025;
+    // cylinder.rotation.z += 0.025;
+    //
+    //
+    // cube.rotation.x += 0.025;
+    // cube.rotation.y += 0.025;
+
+    renderer.render(scene, camera);
+  };
+
+  render();
+  </script>
+</body>
+</html>
