@@ -21,10 +21,10 @@
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.body.appendChild( renderer.domElement );
 
-  // var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  // var material = new THREE.MeshPhongMaterial( { color: 0x909090} );
-  // var cube = new THREE.Mesh( geometry, material );
-  // // scene.add( cube );
+  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+  var material = new THREE.MeshPhongMaterial( { color: 0x909090} );
+  var cube = new THREE.Mesh( geometry, material );
+  scene.add( cube );
   //
   // var dodecahedron = new THREE.Mesh(new THREE.DodecahedronGeometry(), material);
   // // scene.add(dodecahedron);
@@ -62,28 +62,28 @@
   //
   // scene.add(object3d);
 
-  var roundedRectShape = new THREE.Shape();
-  roundedRect( roundedRectShape, 0, 0, 10, 10, 3 );
-  var extrudeSettings = {	amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+  // var roundedRectShape = new THREE.Shape();
+  // roundedRect( roundedRectShape, 0, 0, 10, 10, 3 );
+  // var extrudeSettings = {	amount: 20,  bevelEnabled: true, bevelSegments: 2, steps: 2 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5,
+  //
+  // var roundedRect3d = roundedRectShape.extrude( extrudeSettings );
+  // // var roundedRectPoints = roundedRectShape.createPointsGeometry();
+  // // var roundedRectSpacedPoints = roundedRectShape.createSpacedPointsGeometry();
+  //
+  // function roundedRect( ctx, x, y, width, height, radius ){
+  //
+  //   ctx.moveTo( x, y + radius );
+  //   ctx.lineTo( x, y + height - radius );
+  //   ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
+  //   ctx.lineTo( x + width - radius, y + height) ;
+  //   ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
+  //   ctx.lineTo( x + width, y + radius );
+  //   ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
+  //   ctx.lineTo( x + radius, y );
+  //   ctx.quadraticCurveTo( x, y, x, y + radius );
+  // };
 
-  var roundedRect3d = roundedRectShape.extrude( extrudeSettings );
-  // var roundedRectPoints = roundedRectShape.createPointsGeometry();
-  // var roundedRectSpacedPoints = roundedRectShape.createSpacedPointsGeometry();
-
-  function roundedRect( ctx, x, y, width, height, radius ){
-
-    ctx.moveTo( x, y + radius );
-    ctx.lineTo( x, y + height - radius );
-    ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
-    ctx.lineTo( x + width - radius, y + height) ;
-    ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
-    ctx.lineTo( x + width, y + radius );
-    ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
-    ctx.lineTo( x + radius, y );
-    ctx.quadraticCurveTo( x, y, x, y + radius );
-  };
-
-  scene.add(roundedRect3d);
+  // scene.add(roundedRect3d);
 
   camera.position.z = 20;
 
