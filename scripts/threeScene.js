@@ -1,4 +1,5 @@
 (function () {
+  window.Fifteen = window.Fifteen || {};
 
   var scene = Fifteen.scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera( 60, 1, 0.1, 1000 );
@@ -14,13 +15,13 @@
   scene.add( light );
 
 
-  var geometry = new THREE.BoxGeometry( 5, 5, 1 );
-  var material = new THREE.MeshPhongMaterial( { color: 0x909090} );
-  var cube1 = new THREE.Mesh( geometry, material );
-  scene.add( cube1 );
-  var cube2 = new THREE.Mesh( geometry, material );
-  scene.add( cube2 );
-  cube2.position.x = 5;
+  // var geometry = new THREE.BoxGeometry( 5, 5, 1 );
+  // var material = new THREE.MeshPhongMaterial( { color: 0x909090} );
+  // var cube1 = new THREE.Mesh( geometry, material );
+  // scene.add( cube1 );
+  // var cube2 = new THREE.Mesh( geometry, material );
+  // scene.add( cube2 );
+  // cube2.position.x = 5;
 
 
 
@@ -29,14 +30,13 @@
 
   var render = Fifteen.render = function () {
     requestAnimationFrame( render );
-    cube1.rotation.x += 0.025;
-    cube1.rotation.y += 0.025;
-    cube2.rotation.x += 0.025;
-    cube2.rotation.y += 0.025;
+    // cube1.rotation.x += 0.025;
+    // cube1.rotation.y += 0.025;
+    // cube2.rotation.x += 0.025;
+    // cube2.rotation.y += 0.025;
 
     renderer.render(scene, camera);
   };
 
-  render();
 
 })();
