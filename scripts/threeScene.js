@@ -2,7 +2,7 @@
   window.Fifteen = window.Fifteen || {};
 
   var scene = Fifteen.scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 60, 1, 0.1, 1000 );
+  var camera = new THREE.PerspectiveCamera( 55, 1, 0.1, 1000 );
 
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(800, 800);
@@ -25,10 +25,13 @@
 
 
 
+  camera.position.x = 7.5;
+  camera.position.y = -7.5;
   camera.position.z = 20;
 
 
   var render = Fifteen.render = function () {
+    window.frame.refreshTileCoordinates();
     requestAnimationFrame( render );
     // cube1.rotation.x += 0.025;
     // cube1.rotation.y += 0.025;
