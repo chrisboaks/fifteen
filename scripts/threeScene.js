@@ -8,10 +8,10 @@
   renderer.setSize(800, 800);
   $('#container').append(renderer.domElement);
 
-  var directionalLight = new THREE.PointLight( 0x006600, 0.75 );
-  directionalLight.position.set( -4, 4, 6 );
+  var directionalLight = new THREE.PointLight( 0x888888, 0.9 );
+  directionalLight.position.set( -8, 8, 8 );
   scene.add( directionalLight );
-  var light = new THREE.AmbientLight( 0x668866 );
+  var light = new THREE.AmbientLight( 0x444444 );
   scene.add( light );
 
 

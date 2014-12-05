@@ -3,6 +3,18 @@
 
   var Frame = Fifteen.Frame = function () {
     this.tiles = this.populateTiles();
+    this.model = this.threeFrame();
+    Fifteen.scene.add(this.model);
+  };
+
+  Frame.prototype.threeFrame = function () {
+    var frameGeometry = new THREE.PlaneBufferGeometry(24, 24);
+    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0x696969 });
+    var frame = new THREE.Mesh(frameGeometry, frameMaterial);
+    frame.receiveShadow = true;
+    frame.position.z = -1;
+    return frame;
+
   };
 
   Frame.prototype.populateTiles = function () {

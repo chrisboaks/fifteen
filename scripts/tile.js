@@ -4,7 +4,7 @@
   var Tile = Fifteen.Tile = function (frame, val) {
     this.frame = frame;
     this.val = val;
-    this.model = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
+    this.model = this.threeTile(val);
     this.coordinates = null;
     if (val !== 0) {
       Fifteen.scene.add(this.model);
@@ -14,8 +14,14 @@
   };
 
   Tile.GEOMETRY = new THREE.BoxGeometry( 4, 4, 1 );
-  Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x909090 } );
+  Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x0000FF } );
   // Tile.BASE = new THREE.BoxGeometry(5, 5, 1);
+
+  Tile.prototype.threeTile = function (val) {
+    var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
+    tile.castShadow = true;
+    return tile;
+  };
 
   Tile.prototype.isNeighboringBlank = function () {
     var neighbors = frame.neighborsOf(this);
