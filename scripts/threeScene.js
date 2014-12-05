@@ -9,7 +9,7 @@
   $('#container').append(renderer.domElement);
 
   var directionalLight = new THREE.PointLight( 0x006600, 0.75 );
-  directionalLight.position.set( 2, 2, 6 );
+  directionalLight.position.set( -4, 4, 6 );
   scene.add( directionalLight );
   var light = new THREE.AmbientLight( 0x668866 );
   scene.add( light );
