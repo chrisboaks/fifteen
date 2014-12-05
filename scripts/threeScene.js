@@ -25,8 +25,8 @@
 
 
 
-  camera.position.x = 7.5;
-  camera.position.y = -7.5;
+  // camera.position.x = 7.5;
+  // camera.position.y = -7.5;
   camera.position.z = 20;
 
 

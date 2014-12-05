@@ -15,6 +15,7 @@
 
   Tile.GEOMETRY = new THREE.BoxGeometry( 4, 4, 1 );
   Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x909090 } );
+  // Tile.BASE = new THREE.BoxGeometry(5, 5, 1);
 
   Tile.prototype.isNeighboringBlank = function () {
     var neighbors = frame.neighborsOf(this);
@@ -27,8 +28,8 @@
     this.coordinates = coords;
     var x = coords[0];
     var y = coords[1];
-    this.model.position.x = x * 5;
-    this.model.position.y = -y * 5;
+    this.model.position.x = (x - 1.5) * 5;
+    this.model.position.y = (-y + 1.5) * 5;
   };
 
 
