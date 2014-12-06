@@ -9,8 +9,6 @@
     if (val !== 0) {
       Fifteen.scene.add(this.model);
     }
-
-    // console.log('hi', Fifteen.scene);
   };
 
   Tile.GEOMETRY = new THREE.BoxGeometry( 4, 4, 1 );

@@ -9,7 +9,7 @@
 
   Frame.prototype.threeFrame = function () {
     var frameGeometry = new THREE.PlaneBufferGeometry(24, 24);
-    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0x696969 });
+    var frameMaterial = new THREE.MeshPhongMaterial({ color: 0x696969 });
     var frame = new THREE.Mesh(frameGeometry, frameMaterial);
     frame.receiveShadow = true;
     frame.position.z = -1;
