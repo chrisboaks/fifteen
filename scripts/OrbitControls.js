@@ -62,6 +62,9 @@ THREE.OrbitControls = function ( object, domElement ) {
     this.minPolarAngle = 0; // radians
     this.maxPolarAngle = Math.PI; // radians
 
+    this.minTheta = -Math.PI/2;
+    this.maxTheta = Math.PI/2;
+
     // Set to true to disable use of the keys
     this.noKeys = false;
     // The four arrow keys
@@ -229,6 +232,12 @@ THREE.OrbitControls = function ( object, domElement ) {
 
         theta += thetaDelta;
         phi += phiDelta;
+
+        // restrict theta to be between desired limits
+        theta = Math.max( this.minTheta, Math.min( this.maxTheta, theta ) );
+
+        // restrict theta to be betwee EPS and PI-EPS
+        // theta = Math.max( EPS, Math.min( Math.PI - EPS, theta ) );
 
         // restrict phi to be between desired limits
         phi = Math.max( this.minPolarAngle, Math.min( this.maxPolarAngle, phi ) );
