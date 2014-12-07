@@ -70,14 +70,6 @@
     return this.tiles[row][col];
   };
 
-  Frame.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, 800, 800);
-    var flatTiles = _.flatten(this.tiles);
-    _.each(flatTiles, function (tile) {
-      tile.draw(ctx);
-    });
-  };
-
   Frame.prototype.setTile = function (tile, coordinates) {
     var row = coordinates[0];
     var col = coordinates[1];
@@ -119,9 +111,18 @@
     } else {
       subset = tileSet.slice(keyIndex, blankIndex).reverse();
     }
+
     for (var i = 0; i < numToSlide; i++) {
-      this.slideOne(subset[i]);
+      this.slideOneLater(subset[i], i);
     }
+  };
+
+  Frame.prototype.slideOneLater = function (tile, i) {
+    var that = this;
+    setTimeout(function () {
+      // console.log(subset, i, subset[i]);
+      that.slideOne(tile);
+    }, i*510);
   };
 
   Frame.prototype.tileRow = function (index) {
@@ -129,11 +130,8 @@
   };
 
   Frame.prototype.tileCol = function (index) {
-    return this.transposedTiles()[index];
-  };
-
-  Frame.prototype.transposedTiles = function () {
-    return _.zip.apply(_, this.tiles);
+    var transposed = _.zip.apply(_, this.tiles);
+    return transposed[index];
   };
 
   Frame.prototype.handleClick = function (intersectObj) {

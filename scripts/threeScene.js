@@ -55,9 +55,9 @@
     var intersects = raycaster.intersectObjects( Fifteen.scene.children );
 
     if (intersects.length > 0) {
-      console.log(_.map(intersects, function (obj) {
-        return obj.object.name;
-      }));
+      // console.log(_.map(intersects, function (obj) {
+      //   return obj.object.name;
+      // }));
       window.frame.handleClick( intersects[0].object );
     }
   }
