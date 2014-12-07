@@ -135,7 +135,7 @@
   Frame.prototype.handleClick = function (intersectObj) {
     var flatTiles = _.flatten(this.tiles);
     for (var i = 0; i < 16; i++) {
-      if (flatTiles[i].wasClicked(mouseCoords)) {
+      if (flatTiles[i].wasClicked(intersectObj)) {
         this.slide(flatTiles[i]);
         return;
       }

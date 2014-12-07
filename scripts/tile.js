@@ -18,6 +18,7 @@
   Tile.prototype.threeTile = function (val) {
     var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
     tile.castShadow = true;
+    tile.name = "Tile " + val;
     return tile;
   };
 
@@ -30,10 +31,10 @@
 
   Tile.prototype.setCoordinates = function (coords) {
     this.coordinates = coords;
-    var x = coords[0];
-    var y = coords[1];
+    var x = coords[1];
+    var y = coords[0];
     this.model.position.x = (x - 1.5) * 5;
-    this.model.position.y = (-y + 1.5) * 5;
+    this.model.position.y = (y - 1.5) * -5;
   };
 
 
