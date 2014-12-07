@@ -132,7 +132,7 @@
     return _.zip.apply(_, this.tiles);
   };
 
-  Frame.prototype.handleClick = function (mouseCoords) {
+  Frame.prototype.handleClick = function (intersectObj) {
     var flatTiles = _.flatten(this.tiles);
     for (var i = 0; i < 16; i++) {
       if (flatTiles[i].wasClicked(mouseCoords)) {
