@@ -13,8 +13,8 @@
 
   $gamespace.click( onClick );
 
-  var camera = new THREE.PerspectiveCamera( 55, 1, 0.1, 1000 );
-  camera.position.z = 20;
+  var camera = new THREE.PerspectiveCamera( 55, 1, 0.1, 10000 );
+  camera.position.z = 25;
 
   var cameraControl = new THREE.OrbitControls(camera);
 
