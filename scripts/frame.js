@@ -8,11 +8,11 @@
   };
 
   Frame.prototype.threeFrame = function () {
-    var frameGeometry = new THREE.PlaneBufferGeometry(24, 24);
+    var frameGeometry = new THREE.PlaneBufferGeometry(100, 100);
     var frameMaterial = new THREE.MeshPhongMaterial({ color: 0x696969 });
     var frame = new THREE.Mesh(frameGeometry, frameMaterial);
     frame.receiveShadow = true;
-    frame.position.z = -1;
+    frame.position.z = -0.5;
     return frame;
 
   };

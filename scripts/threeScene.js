@@ -2,7 +2,11 @@
   window.Fifteen = window.Fifteen || {};
 
   var scene = Fifteen.scene = new THREE.Scene();
+
   var camera = new THREE.PerspectiveCamera( 55, 1, 0.1, 1000 );
+  camera.position.z = 20;
+
+  var cameraControl = new THREE.OrbitControls(camera);
 
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(800, 800);
@@ -24,7 +28,6 @@
 
 
 
-  camera.position.z = 20;
 
 
   // var lightTheta = 0;
@@ -37,6 +40,7 @@
   var render = Fifteen.render = function () {
     // lightTheta += 0.05;
     // Fifteen.movelight(lightTheta);
+    cameraControl.update();
     window.frame.refreshTileCoordinates();
     requestAnimationFrame( render );
 
