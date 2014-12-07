@@ -37,6 +37,9 @@
   scene.add( directionalLight );
 
   function onClick( event ) {
+    if (window.frame.isSliding) {
+      return;
+    }
 
     var x = event.pageX - $gamespace.offset().left;
     var y = event.pageY - $gamespace.offset().top;
@@ -70,7 +73,7 @@
     lightTheta += 0.05;
     Fifteen.movelight(lightTheta);
     // cameraControl.update();
-    window.frame.refreshTileCoordinates();
+    // window.frame.refreshTileCoordinates();
     requestAnimationFrame( render );
 
     renderer.render(scene, camera);

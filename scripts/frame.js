@@ -4,7 +4,9 @@
   var Frame = Fifteen.Frame = function () {
     this.tiles = this.populateTiles();
     this.model = this.threeFrame();
+    this.isSliding = false;
     Fifteen.scene.add(this.model);
+    this.refreshTileCoordinates();
   };
 
   Frame.prototype.threeFrame = function () {
@@ -89,11 +91,12 @@
       var blankCoords = blank.coordinates;
       this.setTile(tile, blankCoords);
       this.setTile(blank, tileCoords);
+      tile.setCoordinates(blankCoords);
     }
-    this.refreshTileCoordinates();
   };
 
   Frame.prototype.slide = function (tile) {
+    this.isSliding = true;
     var blankCoords = this.blank().coordinates;
     var row = tile.coordinates[0];
     var col = tile.coordinates[1];
@@ -102,6 +105,7 @@
     } else if (col === blankCoords[1]) {
       this.slideMany(tile, this.tileCol(col));
     }
+    this.isSliding = false;
   };
 
   Frame.prototype.slideMany = function (keyTile, tileSet) {

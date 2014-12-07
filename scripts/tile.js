@@ -30,14 +30,38 @@
   };
 
   Tile.prototype.setCoordinates = function (coords) {
+    var oldCoords = this.coordinates;
     this.coordinates = coords;
-    var x = coords[1];
-    var y = coords[0];
-    this.model.position.x = (x - 1.5) * 5;
-    this.model.position.y = (y - 1.5) * -5;
+
+    if (oldCoords && (oldCoords[1] !== coords[1] || oldCoords[0] !== coords[0])) {
+      console.log(oldCoords);
+      this.animate(oldCoords, coords, 0);
+    } else {
+      this.model.position.x = (coords[1] - 1.5) * 5;
+      this.model.position.y = (coords[0] - 1.5) * -5;
+    }
+    // this.frame.refreshTileCoordinates();
   };
 
+  Tile.prototype.animate = function (oldCoords, newCoords, frame) {
+    if (frame < 30 && this.val !== 0) {
+      console.log(frame, this.val);
+      var that = this;
+      var dX = frame * (newCoords[1] - oldCoords[1]) / 30;
+      var dY = frame * (newCoords[0] - oldCoords[0]) / 30;
+      this.model.position.x = (oldCoords[1] + dX - 1.5) * 5;
+      this.model.position.y = (oldCoords[0] + dY - 1.5) * -5;
+      setTimeout(function () {
+        that.animate(oldCoords, newCoords, frame + 1);
+      }, 1000 / 60);
 
+    } else {
+
+      this.model.position.x = (newCoords[1] - 1.5) * 5;
+      this.model.position.y = (newCoords[0] - 1.5) * -5;
+      this.frame.refreshTileCoordinates();
+    }
+  };
 
   // Tile.prototype.draw = function (ctx) {
   //   if (this.val > 0) {
