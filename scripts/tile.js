@@ -15,17 +15,12 @@
   Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x101070 } );
   Tile.BASEGEOMETRY = new THREE.BoxGeometry( 4.75, 4.755, 0.2);
   Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
-  // Tile.BASE = new THREE.BoxGeometry(5, 5, 1);
 
   Tile.prototype.threeTile = function (val) {
     var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
     var base = new THREE.Mesh( Tile.BASEGEOMETRY, Tile.BASEMATERIAL );
     base.position.z = -0.4;
-    base.castShadow = true;
-
     tile.add(base);
-
-    tile.castShadow = true;
     tile.name = "Tile " + val;
     return tile;
   };
@@ -50,12 +45,15 @@
   };
 
   Tile.prototype.animate = function (oldCoords, newCoords, frame) {
-    if (frame < 30 && this.val !== 0) {
+    var frames = 30;
+    if (frame < frames && this.val !== 0) {
       var that = this;
-      var dX = frame * (newCoords[1] - oldCoords[1]) / 30;
-      var dY = frame * (newCoords[0] - oldCoords[0]) / 30;
+      var dX = frame * (newCoords[1] - oldCoords[1]) / frames;
+      var dY = frame * (newCoords[0] - oldCoords[0]) / frames;
+
       this.model.position.x = (oldCoords[1] + dX - 1.5) * 5;
       this.model.position.y = (oldCoords[0] + dY - 1.5) * -5;
+
       setTimeout(function () {
         that.animate(oldCoords, newCoords, frame + 1);
       }, 1000 / 60);
