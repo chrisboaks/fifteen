@@ -109,14 +109,23 @@
   };
 
   Frame.prototype.shuffle = function () {
-    var nonblanks = _.flatten(this.tiles).slice(0, 15);
+    var tiles = _.flatten(this.tiles).slice(0, 16);
     var swapPair;
-    for (var i = 0; i < 100; i++) {
-      swapPair = _.sample(nonblanks, 2);
+    for (var i = 0; i < 99; i++) {
+      swapPair = _.sample(tiles, 2);
       this.swap(swapPair[0], swapPair[1]);
     }
+    var blank = this.blank();
+    var other = this.tileAt([3,3]);
+
+    if (blank !== other) {
+      this.swap(blank, other);
+    } else {
+      this.swap(this.tileAt([0,0]), this.tileAt([0,1]));
+    }
+
     this.setTileCoordinates();
-    _.each(nonblanks, function (tile) {
+    _.each(tiles, function (tile) {
       tile.setFramePosition();
     });
     this.displayUnsolved();
