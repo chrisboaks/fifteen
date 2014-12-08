@@ -118,7 +118,6 @@
   };
 
   Frame.prototype.slide = function (tile) {
-    this.isSliding = true;
     var blankCoords = this.blank().coordinates;
     var row = tile.coordinates[0];
     var col = tile.coordinates[1];
@@ -127,7 +126,6 @@
     } else if (col === blankCoords[1]) {
       this.slideMany(tile, this.tileCol(col));
     }
-    this.isSliding = false;
   };
 
   Frame.prototype.slideMany = function (keyTile, tileSet) {
@@ -141,10 +139,14 @@
     } else {
       subset = tileSet.slice(keyIndex, blankIndex).reverse();
     }
-
+    var that = this;
+    this.isSliding = true;
     for (var i = 0; i < numToSlide; i++) {
       this.slideOneLater(subset[i], i);
     }
+    setTimeout(function () {
+      that.isSliding = false;
+    }, 510 * numToSlide);
   };
 
   Frame.prototype.slideOneLater = function (tile, i) {
@@ -165,11 +167,13 @@
   };
 
   Frame.prototype.handleClick = function (intersectObj) {
-    var flatTiles = _.flatten(this.tiles);
-    for (var i = 0; i < 16; i++) {
-      if (flatTiles[i].wasClicked(intersectObj)) {
-        this.slide(flatTiles[i]);
-        return;
+    if (!this.isSliding) {
+      var flatTiles = _.flatten(this.tiles);
+      for (var i = 0; i < 16; i++) {
+        if (flatTiles[i].wasClicked(intersectObj)) {
+          this.slide(flatTiles[i]);
+          return;
+        }
       }
     }
   };
