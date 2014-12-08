@@ -11,15 +11,30 @@
     }
   };
 
-  Tile.GEOMETRY = new THREE.BoxGeometry( 4, 4, 1 );
-  Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x101070 } );
-  Tile.BASEGEOMETRY = new THREE.BoxGeometry( 4.75, 4.755, 0.2);
+  Tile.GEOMETRY = new THREE.BoxGeometry(4, 4, 1);
+  Tile.MATERIAL = new THREE.MeshPhongMaterial({ color: 0x101070 });
+  Tile.BASEGEOMETRY = new THREE.BoxGeometry(4.75, 4.755, 0.2);
   Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
+  Tile.TEXTMATERIAL = new THREE.MeshPhongMaterial({ color: 0xdddddd });
+
+
 
   Tile.prototype.threeTile = function (val) {
     var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
     var base = new THREE.Mesh( Tile.BASEGEOMETRY, Tile.BASEMATERIAL );
     base.position.z = -0.4;
+
+    var textGeom = new THREE.TextGeometry( val, {
+      font: 'helvetiker',
+      size: 2,
+      height: 1
+    });
+    var textMesh = new THREE.Mesh( textGeom, Tile.TEXTMATERIAL );
+    var textOffset = val > 9 ? -1.75 : -0.75;
+
+    textMesh.position.set(textOffset, -1, 0);
+    tile.add(textMesh);
+
     tile.add(base);
     tile.name = "Tile " + val;
     return tile;
