@@ -33,15 +33,19 @@
   };
 
   Tile.prototype.setCoordinates = function (coords) {
-    var oldCoords = this.coordinates;
+    // var oldCoords = this.coordinates;
     this.coordinates = coords;
 
-    if (oldCoords && (oldCoords[1] !== coords[1] || oldCoords[0] !== coords[0])) {
-      this.animate(oldCoords, coords, 0);
-    } else {
-      this.model.position.x = (coords[1] - 1.5) * 5;
-      this.model.position.y = (coords[0] - 1.5) * -5;
-    }
+    // if (oldCoords && (oldCoords[1] !== coords[1] || oldCoords[0] !== coords[0])) {
+    //   this.animate(oldCoords, coords, 0);
+    // } else {
+    //   this.setPos
+    // }
+  };
+
+  Tile.prototype.setFramePosition = function (coords) {
+    this.model.position.x = (coords[1] - 1.5) * 5;
+    this.model.position.y = (coords[0] - 1.5) * -5;
   };
 
   Tile.prototype.animate = function (oldCoords, newCoords, frame) {

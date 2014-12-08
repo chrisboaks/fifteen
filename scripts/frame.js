@@ -49,7 +49,9 @@
     allTiles.push(allTiles.shift());
     for (var row = 0; row < 4; row++) {
       for (var col = 0; col < 4; col++) {
-        tiles[row].push(allTiles.shift());
+        var tile = allTiles.shift();
+        tile.setFramePosition([row, col]);
+        tiles[row].push(tile);
       }
     }
     return tiles;
@@ -96,7 +98,7 @@
     this.tiles[row][col] = tile;
   };
 
-  Frame.prototype.slideOne = function (tile) {
+  Frame.prototype.slideOne = function (tile, i) {
     if (tile.isNeighboringBlank()) {
       var tileCoords = tile.coordinates;
       var blank = this.blank();
@@ -105,6 +107,9 @@
       this.setTile(blank, tileCoords);
       tile.setCoordinates(blankCoords);
       blank.setCoordinates(tileCoords);
+      setTimeout(function () {
+        tile.animate(tileCoords, blankCoords, 0);
+      }, i*250);
     }
   };
 
@@ -120,32 +125,26 @@
   };
 
   Frame.prototype.slideMany = function (keyTile, tileSet) {
-    var blank = this.blank();
-    var blankIndex = tileSet.indexOf(blank);
-    var keyIndex = tileSet.indexOf(keyTile);
-    var numToSlide = Math.abs(keyIndex - blankIndex);
-    var subset;
+    var blank = this.blank(),
+        blankIndex = tileSet.indexOf(blank),
+        keyIndex = tileSet.indexOf(keyTile),
+        numToSlide = Math.abs(keyIndex - blankIndex),
+        frame = this,
+        subset;
+
     if (blankIndex < keyIndex) {
       subset = tileSet.slice(blankIndex + 1, keyIndex + 1);
     } else {
       subset = tileSet.slice(keyIndex, blankIndex).reverse();
     }
-    var that = this;
-    this.isSliding = true;
+
+    frame.isSliding = true;
     for (var i = 0; i < numToSlide; i++) {
-      this.slideOneLater(subset[i], i);
+      this.slideOne(subset[i], i);
     }
     setTimeout(function () {
-      that.isSliding = false;
-    }, 510 * numToSlide);
-  };
-
-  Frame.prototype.slideOneLater = function (tile, i) {
-    var that = this;
-    setTimeout(function () {
-      // console.log(subset, i, subset[i]);
-      that.slideOne(tile);
-    }, i*510);
+      frame.isSliding = false;
+    }, (numToSlide + 1) * 250);
   };
 
   Frame.prototype.tileRow = function (index) {
