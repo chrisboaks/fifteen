@@ -61,7 +61,7 @@
   };
 
   Tile.prototype.animate = function (oldCoords, newCoords, frame) {
-    var frames = 30;
+    var frames = 15;
     if (frame < frames && this.val !== 0) {
       var that = this;
       var dX = frame * (newCoords[1] - oldCoords[1]) / frames;

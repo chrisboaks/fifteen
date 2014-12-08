@@ -142,7 +142,7 @@
       blank.setCoordinates(tileCoords);
       setTimeout(function () {
         tile.animate(tileCoords, blankCoords, 0);
-      }, i*250);
+      }, i * 125);
     }
   };
 
@@ -179,7 +179,7 @@
     setTimeout(function () {
       frame.isSliding = false;
       frame.displaySolved();
-    }, (numToSlide + 1) * 250);
+    }, (numToSlide + 1) * 125);
   };
 
   Frame.prototype.displaySolved = function () {
