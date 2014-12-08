@@ -15,14 +15,6 @@
   Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x101070 } );
   Tile.BASEGEOMETRY = new THREE.BoxGeometry( 4.75, 4.755, 0.2);
   Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
-  Tile.TEXTOPTS = {
-    size: 4,
-    height: 1.5,
-    font: 'helvetiker',
-    // bevelEnabled: true,
-    // bevelThickness: 0.2
-  };
-
   // Tile.BASE = new THREE.BoxGeometry(5, 5, 1);
 
   Tile.prototype.threeTile = function (val) {
@@ -31,12 +23,7 @@
     base.position.z = -0.4;
     base.castShadow = true;
 
-    // var textGeo = new THREE.TextGeometry(val);
-    // var text = new THREE.Mesh( textGeo, Tile.BASEMATERIAL );
-
     tile.add(base);
-    // tile.add(text);
-
 
     tile.castShadow = true;
     tile.name = "Tile " + val;
