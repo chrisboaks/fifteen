@@ -5,6 +5,7 @@
     this.tiles = this.populateTiles();
     this.model = this.threeFrame();
     this.isSliding = false;
+    this.wasSolved = true;
     Fifteen.scene.add(this.model);
     this.setTileCoordinates();
   };
@@ -16,7 +17,7 @@
     var backingMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
 
-    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
+    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xffff00 });
     var sideGeometry = new THREE.BoxGeometry(1, 22, 2);
     var vertGeometry = new THREE.BoxGeometry(22, 1, 2);
 
@@ -122,6 +123,7 @@
     } else if (col === blankCoords[1]) {
       this.slideMany(tile, this.tileCol(col));
     }
+
   };
 
   Frame.prototype.slideMany = function (keyTile, tileSet) {
@@ -142,9 +144,25 @@
     for (var i = 0; i < numToSlide; i++) {
       this.slideOne(subset[i], i);
     }
+    frame.displayUnsolved();
     setTimeout(function () {
       frame.isSliding = false;
+      frame.displaySolved();
     }, (numToSlide + 1) * 250);
+  };
+
+  Frame.prototype.displaySolved = function () {
+    if (this.isSolved() && !this.wasSolved) {
+      this.model.children[1].material.color.setHex(0xffff00);
+      this.wasSolved = true;
+    }
+  };
+
+  Frame.prototype.displayUnsolved = function () {
+    if (!this.isSolved() && this.wasSolved){
+      this.model.children[1].material.color.setHex(0xaaaaaa);
+      this.wasSolved = false;
+    }
   };
 
   Frame.prototype.tileRow = function (index) {
