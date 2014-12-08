@@ -44,6 +44,15 @@
       window.frame.handleClick(iObjs);
     }
   }
+  //
+  // function onButtonClick(event) {
+  //   window.frame.shuffle();
+  // }
+  //
+  // function bindHandlers() {
+  //   $gamespace.click(onClick);
+  //   $('')
+  // }
 
   var render = Fifteen.render = function () {
     requestAnimationFrame(render);

@@ -1,9 +1,65 @@
-* {
-  font-family: sans-serif;
+html, body, div, input, ul, li,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+table, tbody, tfoot, thead, tr, th, td, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-family: 'Roboto', sans-serif;
+  vertical-align: baseline;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-#container {
+.group:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+body {
+  color: #333;
+  background: #EEE;
+}
+
+h1 {
+  font-size: 48px;
+  text-align: center;
+  padding-bottom: 20px;
+  margin: 30px 0;
+  border-bottom: 1px solid #AAA;
+}
+
+button {
+  display: block;
+  padding: 10px 15px;
+  margin: 390px 30px;
+  background: #1E90FF;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 16px;
+  font-family: sans-serif;
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+  background: #4682B4;
+}
+
+button:focus {
+  outline: none;
+}
+
+#gamespace {
+  display: block;
+  float: left;
+  margin: 0 auto;
   width: 800px;
   height: 800px;
-  border: 2px solid black;
+  border: 2px solid #333;
+  margin: 0 20px 20px 20px;
 }
