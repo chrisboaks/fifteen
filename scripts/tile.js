@@ -15,7 +15,7 @@
   Tile.MATERIAL = new THREE.MeshPhongMaterial({ color: 0x101070 });
   Tile.BASEGEOMETRY = new THREE.BoxGeometry(4.75, 4.755, 0.2);
   Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
-  Tile.TEXTMATERIAL = new THREE.MeshPhongMaterial({ color: 0xdddddd });
+  Tile.TEXTMATERIAL = new THREE.MeshLambertMaterial({ color: 0xdddddd });
 
 
 
@@ -80,8 +80,13 @@
     }
   };
 
-  Tile.prototype.wasClicked = function (tileModel) {
-    return this.model === tileModel;
+  Tile.prototype.wasClicked = function (tileModels) {
+    for (var i = 0; i < tileModels.length; i++) {
+      if (this.model === tileModels[i]) {
+        return true;
+      }
+    }
+    return false;
   };
 
 })();

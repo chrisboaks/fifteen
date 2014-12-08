@@ -156,11 +156,11 @@
     return transposed[index];
   };
 
-  Frame.prototype.handleClick = function (intersectObj) {
+  Frame.prototype.handleClick = function (intersectObjs) {
     if (!this.isSliding) {
       var flatTiles = _.flatten(this.tiles);
       for (var i = 0; i < 16; i++) {
-        if (flatTiles[i].wasClicked(intersectObj)) {
+        if (flatTiles[i].wasClicked(intersectObjs)) {
           this.slide(flatTiles[i]);
           return;
         }
