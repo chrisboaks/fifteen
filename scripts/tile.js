@@ -12,11 +12,19 @@
   };
 
   Tile.GEOMETRY = new THREE.BoxGeometry( 4, 4, 1 );
-  Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x0000FF } );
+  Tile.MATERIAL = new THREE.MeshPhongMaterial( { color: 0x101070 } );
+  Tile.BASEGEOMETRY = new THREE.BoxGeometry( 4.75, 4.755, 0.2);
+  Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
   // Tile.BASE = new THREE.BoxGeometry(5, 5, 1);
 
   Tile.prototype.threeTile = function (val) {
     var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
+    var base = new THREE.Mesh( Tile.BASEGEOMETRY, Tile.BASEMATERIAL );
+    base.position.z = -0.4;
+    base.castShadow = true;
+
+    tile.add(base);
+
     tile.castShadow = true;
     tile.name = "Tile " + val;
     return tile;

@@ -15,23 +15,27 @@
     var backingGeometry = new THREE.PlaneBufferGeometry(10000, 10000);
     var backingMaterial = new THREE.MeshPhongMaterial({ color: 0x505050 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
+    backing.receiveShadow = true;
 
     var frameMaterial = new THREE.MeshPhongMaterial({ color: 0x696969 });
-    var sideGeometry = new THREE.BoxGeometry(1, 23, 2);
-    var vertGeometry = new THREE.BoxGeometry(23, 1, 2);
+    var sideGeometry = new THREE.BoxGeometry(1, 22, 2);
+    var vertGeometry = new THREE.BoxGeometry(22, 1, 2);
 
     var left = new THREE.Mesh(sideGeometry, frameMaterial);
-    left.position.x = -11;
+    left.position.x = -10.5;
+    left.castShadow = true;
 
     var right = new THREE.Mesh(sideGeometry, frameMaterial);
-    right.position.x = 11;
+    right.position.x = 10.5;
+    right.castShadow = true;
 
     var top = new THREE.Mesh(vertGeometry, frameMaterial);
-    top.position.y = 11;
+    top.position.y = 10.5;
+    top.castShadow = true;
 
     var bottom = new THREE.Mesh(vertGeometry, frameMaterial);
-    bottom.position.y = -11;
-
+    bottom.position.y = -10.5;
+    bottom.castShadow = true;
 
     frame.add(backing);
     frame.add(left);
@@ -39,7 +43,7 @@
     frame.add(top);
     frame.add(bottom);
 
-    frame.receiveShadow = true;
+    backing.receiveShadow = true;
     frame.position.z = -0.5;
     return frame;
 

@@ -70,7 +70,7 @@
 
 
   var render = Fifteen.render = function () {
-    lightTheta += 0.05;
+    lightTheta += 0.02;
     Fifteen.movelight(lightTheta);
     // cameraControl.update();
     // window.frame.refreshTileCoordinates();
