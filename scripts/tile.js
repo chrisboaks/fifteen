@@ -54,7 +54,8 @@
     this.coordinates = coords;
   };
 
-  Tile.prototype.setFramePosition = function (coords) {
+  Tile.prototype.setFramePosition = function (coordinates) {
+    var coords = coordinates || this.coordinates;
     this.model.position.x = (coords[1] - 1.5) * 5;
     this.model.position.y = (coords[0] - 1.5) * -5;
   };
