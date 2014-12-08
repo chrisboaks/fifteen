@@ -27,12 +27,15 @@
     var textGeom = new THREE.TextGeometry( val, {
       font: 'helvetiker',
       size: 2,
-      height: 1
+      height: 1,
+      bevelEnabled: true,
+      bevelThickness: 0.25,
+      bevelSize: 0.15
     });
     var textMesh = new THREE.Mesh( textGeom, Tile.TEXTMATERIAL );
     var textOffset = val > 9 ? -1.75 : -0.75;
 
-    textMesh.position.set(textOffset, -1, 0);
+    textMesh.position.set(textOffset, -1, -0.5);
     tile.add(textMesh);
 
     tile.add(base);
