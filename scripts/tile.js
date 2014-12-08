@@ -33,14 +33,7 @@
   };
 
   Tile.prototype.setCoordinates = function (coords) {
-    // var oldCoords = this.coordinates;
     this.coordinates = coords;
-
-    // if (oldCoords && (oldCoords[1] !== coords[1] || oldCoords[0] !== coords[0])) {
-    //   this.animate(oldCoords, coords, 0);
-    // } else {
-    //   this.setPos
-    // }
   };
 
   Tile.prototype.setFramePosition = function (coords) {
@@ -63,10 +56,9 @@
       }, 1000 / 60);
 
     } else {
-
+      // ensures tiles are correctly placed after animation
       this.model.position.x = (newCoords[1] - 1.5) * 5;
       this.model.position.y = (newCoords[0] - 1.5) * -5;
-      this.frame.refreshTileCoordinates();
     }
   };
 

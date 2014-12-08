@@ -6,17 +6,17 @@
     this.model = this.threeFrame();
     this.isSliding = false;
     Fifteen.scene.add(this.model);
-    this.refreshTileCoordinates();
+    this.setTileCoordinates();
   };
 
   Frame.prototype.threeFrame = function () {
     var frame = new THREE.Object3D();
 
     var backingGeometry = new THREE.PlaneBufferGeometry(10000, 10000);
-    var backingMaterial = new THREE.MeshPhongMaterial({ color: 0x505050 });
+    var backingMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
 
-    var frameMaterial = new THREE.MeshPhongMaterial({ color: 0x696969 });
+    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
     var sideGeometry = new THREE.BoxGeometry(1, 22, 2);
     var vertGeometry = new THREE.BoxGeometry(22, 1, 2);
 
@@ -168,7 +168,7 @@
     }
   };
 
-  Frame.prototype.refreshTileCoordinates = function () {
+  Frame.prototype.setTileCoordinates = function () {
     for (var row = 0; row < 4; row++) {
       for (var col = 0; col < 4; col++) {
         this.tiles[row][col].setCoordinates([row, col]);

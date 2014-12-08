@@ -16,7 +16,7 @@
   renderer.shadowMapEnabled = true;
   $gamespace.append(renderer.domElement);
 
-  var spotLight = new THREE.SpotLight(0xffffff, 0.75);
+  var spotLight = new THREE.SpotLight(0xeeeeee, 0.75);
   spotLight.position.set(-8, 8, 40);
   scene.add( spotLight );
 
