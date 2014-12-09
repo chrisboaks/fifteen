@@ -36,7 +36,7 @@
 
 
   Tile.prototype.threeTile = function (val) {
-    var tile = new THREE.Object3D()
+    var tile = new THREE.Object3D();
 
     var stand = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
     stand.position.z = -1;

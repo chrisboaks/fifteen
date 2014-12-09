@@ -35,11 +35,12 @@
     var vector = new THREE.Vector3(mouseX, mouseY, camera.near);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    var intersects = raycaster.intersectObjects(Fifteen.scene.children);
+    var intersects = raycaster.intersectObjects(Fifteen.scene.children, true);
+    console.log(intersects);
 
     if (intersects.length > 0) {
       iObjs = _.map(intersects, function (intersect) {
-        return intersect.object;
+        return intersect.object.parent;
       });
       window.frame.handleClick(iObjs);
     }
