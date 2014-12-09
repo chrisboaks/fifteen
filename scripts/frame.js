@@ -11,55 +11,31 @@
   };
 
   Frame.prototype.threeFrame = function () {
-    // var sideGeometry = new THREE.BoxGeometry(1, 22, 2);
-    // var vertGeometry = new THREE.BoxGeometry(22, 1, 2);
-    //
-    // var left = new THREE.Mesh(sideGeometry, frameMaterial);
-    // left.position.x = -10.5;
-    // var right = new THREE.Mesh(sideGeometry, frameMaterial);
-    // right.position.x = 10.5;
-    // var top = new THREE.Mesh(vertGeometry, frameMaterial);
-    // top.position.y = 10.5;
-    // var bottom = new THREE.Mesh(vertGeometry, frameMaterial);
-    // bottom.position.y = -10.5;
-
-    // frame.add(backing);
-    // frame.add(left);
-    // frame.add(right);
-    // frame.add(top);
-    // frame.add(bottom);
-
-    // frame.add(backing);
-    // frame.add(frameWalls);
-
-
-
-
-
     var frameModel = new THREE.Object3D();
-    //
+
     var backingGeometry = new THREE.PlaneBufferGeometry(500, 500);
     var backingMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
-    //
-    // var frameShape = this.frameShape();
-    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700 });
-    // var frameWalls = new THREE.ExtrudeGeometry(frameShape);
-    // // var frameWalls = new THREE.ExtrudeGeometry(frameShape, {
-    // //   amount: 1,
-    // //   steps: 2,
-    // //   bevelEnabled: true,
-    // //   bevelThickness: 0.25,
-    // //   bevelSize: 0.15,
-    // //   bevelSegments: 3
-    // // });
-    //
-    // frame.add(backing);
-    // // scene.add(frameWalls);
-    //
-    // frame.position.z = -0.5;
-    // return frame;
 
+    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700 });
+    var wallShape = this.wallShape();
+    var frameWallGeometry = new THREE.ExtrudeGeometry(wallShape, {
+      amount: 1,
+      steps: 2,
+      bevelEnabled: true,
+      bevelThickness: 0.25,
+      bevelSize: 0.15,
+      bevelSegments: 3
+    });
+
+    frameModel.add(backing);
+    frameModel.add(new THREE.Mesh(frameWallGeometry, frameMaterial));
+    frameModel.position.z = -1;
+    return frameModel;
+
+  };
+
+  Frame.prototype.wallShape = function (first_argument) {
     var far = 11.25;
     var near = 10.25;
 
@@ -78,61 +54,9 @@
     hole.lineTo(-near, -near);
 
     wallShape.holes.push(hole);
-    var frameWalls = new THREE.ExtrudeGeometry(wallShape, {
-      amount: 1,
-      steps: 2,
-      bevelEnabled: true,
-      bevelThickness: 0.25,
-      bevelSize: 0.15,
-      bevelSegments: 3
-    });
 
-    window.walls = frameWalls;
-
-    frameModel.add(backing);
-    frameModel.add(new THREE.Mesh(frameWalls, frameMaterial));
-    frameModel.position.z = -1;
-    return frameModel;
-
+    return wallShape;
   };
-
-  Frame.prototype.squareShape = function (size) {
-    var dist = size / 2;
-    var square = new THREE.Shape();
-    square.moveTo(-dist, -dist);
-    square.lineTo(-dist, dist);
-    square.lineTo(dist, dist);
-    square.lineTo(dist, -dist);
-    square.lineTo(-dist, -dist);
-    return square;
-  };
-
-  // Frame.prototype.frameShape = function () {
-  //   var space = 20;
-  //   var width = 1;
-  //
-  //   var near = space / 2;           //10
-  //   var far = near + width;         //11
-  //
-  //   var left = this.rectangle(-far, -near, -far, far);
-  //   var right = this.rectangle(near, far, -far, far);
-  //   var top = this.rectangle(-far, far, near, far);
-  //   var bottom = this.rectangle(-far, far, -far, -near);
-  //
-  //   return new THREE.ShapeGeometry([left, right, top, bottom]);
-  // };
-  //
-  // Frame.prototype.rectangle = function (leftX, rightX, bottomY, topY) {
-  //   var shape = new THREE.Shape();
-  //   shape.moveTo(leftX, bottomY);
-  //   shape.lineTo(leftX, topY);
-  //   shape.lineTo(rightX, topY);
-  //   shape.lineTo(rightX, bottomY);
-  //   shape.lineTo(leftX, bottomY);
-  //   return shape;
-  // };
-
-
 
   Frame.prototype.populateTiles = function () {
     var allTiles = [];
