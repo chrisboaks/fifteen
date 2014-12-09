@@ -18,7 +18,6 @@
   Tile.TEXTMATERIAL = new THREE.MeshLambertMaterial({ color: 0xdddddd });
 
 
-
   Tile.prototype.threeTile = function (val) {
     var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
     var base = new THREE.Mesh( Tile.BASEGEOMETRY, Tile.BASEMATERIAL );
@@ -76,8 +75,7 @@
 
     } else {
       // ensures tiles are correctly placed after animation
-      this.model.position.x = (newCoords[1] - 1.5) * 5;
-      this.model.position.y = (newCoords[0] - 1.5) * -5;
+      this.setFramePosition();
     }
   };
 

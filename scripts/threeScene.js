@@ -6,15 +6,15 @@
   var $gamespace = $('#gamespace');
   $gamespace.click(onClick);
 
-  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 10000);
-  camera.position.z = 25;
-
-  var cameraControl = new THREE.OrbitControls(camera, document.getElementById('gamespace'));
-
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(800, 800);
   renderer.shadowMapEnabled = true;
   $gamespace.append(renderer.domElement);
+
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 300);
+  camera.position.z = 25;
+
+  var cameraControl = new THREE.OrbitControls(camera, document.getElementById('gamespace'));
 
   var spotLight = new THREE.SpotLight(0xeeeeee, 0.75);
   spotLight.position.set(-8, 8, 40);
@@ -44,15 +44,6 @@
       window.frame.handleClick(iObjs);
     }
   }
-  //
-  // function onButtonClick(event) {
-  //   window.frame.shuffle();
-  // }
-  //
-  // function bindHandlers() {
-  //   $gamespace.click(onClick);
-  //   $('')
-  // }
 
   var render = Fifteen.render = function () {
     requestAnimationFrame(render);

@@ -50,7 +50,7 @@ THREE.OrbitControls = function ( object, domElement ) {
     this.rotateSpeed = 1.0;
 
     // Set to true to disable this control
-    this.noPan = false;
+    this.noPan = true;
     this.keyPanSpeed = 7.0;	// pixels moved per arrow key push
 
     // Set to true to automatically rotate around the target
@@ -59,11 +59,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 
     // How far you can orbit vertically, upper and lower limits.
     // Range is 0 to Math.PI radians.
-    this.minPolarAngle = Math.PI / 6; // radians
-    this.maxPolarAngle = 5 * Math.PI / 6; // radians
+    this.minPolarAngle = Math.PI / 3; // radians
+    this.maxPolarAngle = 2 * Math.PI / 3; // radians
 
-    this.minTheta = -Math.PI/3;
-    this.maxTheta = Math.PI/3;
+    this.minTheta = -Math.PI/4;
+    this.maxTheta = Math.PI/4;
 
     // Set to true to disable use of the keys
     this.noKeys = false;

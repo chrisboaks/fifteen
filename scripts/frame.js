@@ -4,16 +4,16 @@
   var Frame = Fifteen.Frame = function () {
     this.tiles = this.populateTiles();
     this.model = this.threeFrame();
+    Fifteen.scene.add(this.model);
     this.isSliding = false;
     this.wasSolved = true;
-    Fifteen.scene.add(this.model);
     this.setTileCoordinates();
   };
 
   Frame.prototype.threeFrame = function () {
     var frame = new THREE.Object3D();
 
-    var backingGeometry = new THREE.PlaneBufferGeometry(10000, 10000);
+    var backingGeometry = new THREE.PlaneBufferGeometry(500, 500);
     var backingMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
 
@@ -58,11 +58,6 @@
     return tiles;
   };
 
-  Frame.prototype.areValidCoords = function (coordinates) {
-    var coords = coordinates.slice().sort();
-    return (coords[0] >= 0 && coords[1] <= 3);
-  };
-
   Frame.prototype.blank = function () {
     var tile;
     for (var row = 0; row < 4; row++) {
@@ -73,6 +68,11 @@
         }
       }
     }
+  };
+
+  Frame.prototype.areValidCoords = function (coordinates) {
+    var coords = coordinates.slice().sort();
+    return (coords[0] >= 0 && coords[1] <= 3);
   };
 
   Frame.prototype.neighborsOf = function (tile) {
@@ -109,37 +109,37 @@
   };
 
   Frame.prototype.shuffle = function () {
-    var nonblanks = _.flatten(this.tiles).slice(0, 15);
+    var flatTiles = _.flatten(this.tiles);
+    var nonblanks = _.filter(flatTiles, function (tile) {
+      return tile.val !== 0;
+    });
     var swapPair;
-    for (var i = 0; i < 99; i++) {
+
+    var blankCoords = this.blank().coordinates;
+    var blankTaxiDist = 6 - blankCoords[0] - blankCoords[1];
+    var swaps = (blankTaxiDist % 2 === 0 ? 50 : 49);
+
+    for (var i = 0; i < swaps; i++) {
       swapPair = _.sample(nonblanks, 2);
       this.swap(swapPair[0], swapPair[1]);
     }
-    var blank = this.blank();
-    var corner = this.tileAt([3,3]);
-
-    if (blank !== corner) {
-      this.swap(blank, corner);
-    } else {
-      this.swap(this.tileAt([0,0]), this.tileAt([0,1]));
-    }
 
     this.setTileCoordinates();
-    _.each(_.flatten(this.tiles), function (tile) {
+    _.each(flatTiles, function (tile) {
       tile.setFramePosition();
     });
+
     this.displayUnsolved();
   };
 
   Frame.prototype.slideOne = function (tile, i) {
     if (tile.isNeighboringBlank()) {
-      var tileCoords = tile.coordinates;
       var blank = this.blank();
+      var tileCoords = tile.coordinates;
       var blankCoords = blank.coordinates;
-      this.setTile(tile, blankCoords);
-      this.setTile(blank, tileCoords);
-      tile.setCoordinates(blankCoords);
-      blank.setCoordinates(tileCoords);
+
+      this.swap(tile, blank);
+
       setTimeout(function () {
         tile.animate(tileCoords, blankCoords, 0);
       }, i * 125);
@@ -150,11 +150,21 @@
     var blankCoords = this.blank().coordinates;
     var row = tile.coordinates[0];
     var col = tile.coordinates[1];
+
     if (row === blankCoords[0]) {
       this.slideMany(tile, this.tileRow(row));
     } else if (col === blankCoords[1]) {
       this.slideMany(tile, this.tileCol(col));
     }
+  };
+
+  Frame.prototype.tileRow = function (index) {
+    return this.tiles[index];
+  };
+
+  Frame.prototype.tileCol = function (index) {
+    var transposed = _.zip.apply(_, this.tiles);
+    return transposed[index];
   };
 
   Frame.prototype.slideMany = function (keyTile, tileSet) {
@@ -183,26 +193,15 @@
   };
 
   Frame.prototype.displaySolved = function () {
-    if (this.isSolved() && !this.wasSolved) {
+    if (this.isSolved()) {
       this.model.children[1].material.color.setHex(0xffff00);
-      this.wasSolved = true;
     }
   };
 
   Frame.prototype.displayUnsolved = function () {
-    if (!this.isSolved() && this.wasSolved){
+    if (!this.isSolved()) {
       this.model.children[1].material.color.setHex(0xaaaaaa);
-      this.wasSolved = false;
     }
-  };
-
-  Frame.prototype.tileRow = function (index) {
-    return this.tiles[index];
-  };
-
-  Frame.prototype.tileCol = function (index) {
-    var transposed = _.zip.apply(_, this.tiles);
-    return transposed[index];
   };
 
   Frame.prototype.handleClick = function (intersectObjs) {
