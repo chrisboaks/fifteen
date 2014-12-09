@@ -59,9 +59,12 @@ THREE.OrbitControls = function ( object, domElement ) {
 
     // How far you can orbit vertically, upper and lower limits.
     // Range is 0 to Math.PI radians.
+
     this.minPolarAngle = Math.PI / 3; // radians
     this.maxPolarAngle = 2 * Math.PI / 3; // radians
 
+    // this.minTheta = -Math.PI;
+    // this.maxTheta = Math.PI;
     this.minTheta = -Math.PI/4;
     this.maxTheta = Math.PI/4;
 
