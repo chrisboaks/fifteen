@@ -36,7 +36,6 @@
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var intersects = raycaster.intersectObjects(Fifteen.scene.children, true);
-    console.log(intersects);
 
     if (intersects.length > 0) {
       iObjs = _.map(intersects, function (intersect) {
