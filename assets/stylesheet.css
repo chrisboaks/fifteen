@@ -58,8 +58,8 @@ button:focus {
   display: block;
   float: left;
   margin: 0 auto;
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 600px;
   border: 2px solid #333;
   margin: 0 20px 20px 20px;
 }

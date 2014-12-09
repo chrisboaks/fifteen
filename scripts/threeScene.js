@@ -7,7 +7,7 @@
   $gamespace.click(onClick);
 
   var renderer = new THREE.WebGLRenderer();
-  renderer.setSize(800, 800);
+  renderer.setSize(600, 600);
   renderer.shadowMapEnabled = true;
   $gamespace.append(renderer.domElement);
 
@@ -29,8 +29,8 @@
 
     var x = event.pageX - $gamespace.offset().left;
     var y = event.pageY - $gamespace.offset().top;
-    var mouseX = 2 * (x / 800) - 1;
-    var mouseY = 1 - 2 * ( y / 800 );
+    var mouseX = 2 * (x / 600) - 1;
+    var mouseY = 1 - 2 * ( y / 600 );
 
     var vector = new THREE.Vector3(mouseX, mouseY, camera.near);
     vector.unproject(camera);

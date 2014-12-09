@@ -17,7 +17,7 @@
     var backingMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     var backing = new THREE.Mesh(backingGeometry, backingMaterial);
 
-    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xffff00 });
+    var frameMaterial = new THREE.MeshLambertMaterial({ color: 0xFFD700 });
     var sideGeometry = new THREE.BoxGeometry(1, 22, 2);
     var vertGeometry = new THREE.BoxGeometry(22, 1, 2);
 
@@ -194,13 +194,13 @@
 
   Frame.prototype.displaySolved = function () {
     if (this.isSolved()) {
-      this.model.children[1].material.color.setHex(0xffff00);
+      this.model.children[1].material.color.setHex(0xFFD700);
     }
   };
 
   Frame.prototype.displayUnsolved = function () {
     if (!this.isSolved()) {
-      this.model.children[1].material.color.setHex(0xaaaaaa);
+      this.model.children[1].material.color.setHex(0xAAAAAA);
     }
   };
 
