@@ -11,7 +11,24 @@
     }
   };
 
-  Tile.GEOMETRY = new THREE.BoxGeometry(4, 4, 1);
+  var sqLength = 4;
+
+  Tile.BASE = new THREE.Shape();
+  Tile.BASE.moveTo(-sqLength/2, -sqLength/2);
+  Tile.BASE.lineTo(-sqLength/2, sqLength/2);
+  Tile.BASE.lineTo(sqLength/2, sqLength/2);
+  Tile.BASE.lineTo(sqLength/2, -sqLength/2);
+  Tile.BASE.lineTo(-sqLength/2, -sqLength/2);
+
+  Tile.GEOMETRY = new THREE.ExtrudeGeometry(Tile.BASE, {
+    amount: 1,
+    steps: 2,
+    bevelEnabled: true,
+    bevelThickness: 0.25,
+    bevelSize: 0.15,
+    bevelSegments: 3
+  });
+
   Tile.MATERIAL = new THREE.MeshPhongMaterial({ color: 0x101070 });
   Tile.BASEGEOMETRY = new THREE.BoxGeometry(4.75, 4.755, 0.2);
   Tile.BASEMATERIAL = new THREE.MeshPhongMaterial( { color: 0x003000 });
@@ -19,7 +36,11 @@
 
 
   Tile.prototype.threeTile = function (val) {
-    var tile = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
+    var tile = new THREE.Object3D()
+
+    var stand = new THREE.Mesh(Tile.GEOMETRY, Tile.MATERIAL);
+    stand.position.z = -1;
+
     var base = new THREE.Mesh( Tile.BASEGEOMETRY, Tile.BASEMATERIAL );
     base.position.z = -0.4;
 
@@ -35,8 +56,8 @@
     var textOffset = val > 9 ? -1.75 : -0.75;
 
     textMesh.position.set(textOffset, -1, -0.5);
+    tile.add(stand);
     tile.add(textMesh);
-
     tile.add(base);
     tile.name = "Tile " + val;
     return tile;
